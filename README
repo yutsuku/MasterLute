@@ -1,0 +1,29 @@
+MasterLute - a World of Warcraft (1.12.1) AddOn
+===================================================
+
+Installation:
+
+Put "MasterLute" folder into ".../World of Warcraft/Interface/AddOns/".
+Create AddOns folder if necessary
+
+After Installation directory tree should look like the following
+
+'''
+World of Warcraft
+  `- Interface
+     `- AddOns
+        `- MasterLute
+           |- README.txt
+           |- MasterLute.lua
+           |- MasterLute.toc
+'''
+
+Features:
+- Sends raid chat message with some predefined variables by user
+
+Usage:
+- Shift click on the loot item, set price if neccessary and hit "Send" to 
+  post the message
+
+Requested by:
+- Fumtech
