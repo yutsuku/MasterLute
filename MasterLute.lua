@@ -1,3 +1,4 @@
+local _G = getfenv(0)
 local debug_level = 0 -- 0 release, 1 some messages, 3 all messages
 local addon = CreateFrame('Frame', 'MasterLute')
 
@@ -6,6 +7,7 @@ addon:SetScript('OnEvent', function()
 end)
 
 addon.hooks = {}
+addon.LootCloseError = 0
 
 addon:RegisterEvent('ADDON_LOADED')
 addon:RegisterEvent('PLAYER_LOGIN')
@@ -192,12 +194,31 @@ function addon:MakeUI()
 		SendChatMessage(str, 'RAID')
 	end)
 	
-	addon.hooks.LootFrameItem_OnClick = LootFrameItem_OnClick
-	addon.hooks.LootFrame_Update = LootFrame_Update
+	self.hooks.LootFrameItem_OnClick = LootFrameItem_OnClick
+	self.hooks.LootFrame_Update = LootFrame_Update
+	self.hooks.LootFrame_OnHide = LootFrame_OnHide
+	self.hooks.LootFrame_OnShow = LootFrame_OnShow
+	self.hooks.CloseLoot = CloseLoot
+	
+	function LootFrame_OnHide()
+		addon.hooks.LootFrame_OnHide()
+		self:OnClose()
+	end
+	
+	function LootFrame_OnShow()
+		addon.hooks.LootFrame_OnShow()
+		self:OnShow()
+	end
 	
 	function LootFrame_Update()
 		addon.hooks.LootFrame_Update()
 		self:ClearItem()
+	end
+	
+	function CloseLoot(reason)
+		self.LootCloseError = reason
+		addon.hooks.CloseLoot(reason)
+		self:OnClose()
 	end
 	
 	function LootFrameItem_OnClick(button)
@@ -226,13 +247,24 @@ function addon:MakeUI()
 end
 
 function addon:LOOT_OPENED()
-	self:print('LOOT_OPENED', 1)
+	self:OnShow()
+end
+
+function addon:LOOT_CLOSED()
+	self:OnClose()
+end
+
+function addon:OnShow()
+	if self.LootCloseError > 0 then
+		self.LootCloseError = 0
+		return
+	end
+	
 	self:ClearItem()
 	self.main_frame:Show()
 end
 
-function addon:LOOT_CLOSED()
-	self:print('LOOT_CLOSED', 1)
+function addon:OnClose()
 	self:ClearItem()
 	self.main_frame:Hide()
 end
