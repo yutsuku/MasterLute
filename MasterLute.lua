@@ -255,7 +255,7 @@ function addon:LOOT_CLOSED()
 end
 
 function addon:OnShow()
-	if self.LootCloseError > 0 then
+	if self.LootCloseError and self.LootCloseError > 0 then
 		self.LootCloseError = 0
 		return
 	end
