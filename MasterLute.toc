@@ -1,8 +1,19 @@
 ## Interface: 11200
 ## Title: MasterLute
 ## Author: moh
-## Version: 1.10
+## Version: 1.11
 ## X-Notes: Made for Fumtech
 ## SavedVariables: MasterLute_Data
 
-MasterLute.lua
+Global.lua
+
+locale\Locale.lua
+locale\LocaleTable.lua
+
+locale\enUS.lua
+locale\zhCN.lua
+
+Core.lua
+Commands.lua
+UI.lua
+Main.lua
