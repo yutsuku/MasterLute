@@ -49,6 +49,7 @@ function LootFrameItem_OnClick(button)
 	if ( not ChatFrameEditBox:IsVisible() and IsShiftKeyDown() and MasterLute.main_frame:IsVisible() ) then
 		local _, _, item_id, enchant_id, suffix_id, unique_id, name = strfind(GetLootSlotLink(this.slot), '^|c%x%x%x%x%x%x%x%x|Hitem:(%d+):(%d+):(%d+):(%d+)|h%[(.+)%]|h|r$')
 		if item_id then
+			item_id = tonumber(item_id)
 			MasterLute.main_frame.item.hasItem = true
 			MasterLute.main_frame.item.texture = GetLootSlotInfo(this.slot)
 			MasterLute.main_frame.item.itemString = GetLootSlotLink(this.slot)

@@ -1,7 +1,7 @@
 ## Interface: 11200
 ## Title: MasterLute
 ## Author: moh
-## Version: 1.12
+## Version: 1.13
 ## X-Notes: Made for Fumtech
 ## SavedVariables: MasterLute_Data
 
